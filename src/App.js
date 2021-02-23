@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="main">
+        <h1>We're launching soon</h1>
+
+        Days
+        Hours
+        Minutes
+        Seconds
+      </div>
+      <div className="footer">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+        Coded by <a href="https://github.com/AnderBuendia">anderb</a>.
+      </div>
     </div>
   );
 }
