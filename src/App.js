@@ -2,21 +2,27 @@ import React, {useState, useEffect} from 'react';
 import './index.css';
 import { setCountdownTwoWeeks } from './utils/setCountdownTwoWeeks';
 import Countdown from './components/Countdown';
+import Footer from './components/Footer';
 
 function App() {
   const countdownTwoWeeks = setCountdownTwoWeeks();
 
   const calculateTimeLeft = date => {
     let difference = +new Date(`${date}`) - +new Date();
-    let timeLeft = {};
 
-    timeLeft = {
+    let timeLeft = {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-    
+
+    for (let i in timeLeft) {
+      if (timeLeft[i] < 10) {
+        timeLeft[i] = ("0" + timeLeft[i]).slice(-2);
+      } 
+    }
+
     return timeLeft;
   };
 
@@ -38,12 +44,7 @@ function App() {
 
       <Countdown timeLeft={timeLeft} />
     
-      <div className="footer">
-        <div className="attribution">
-          Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-          Coded by <a href="https://github.com/AnderBuendia">anderb</a>.
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

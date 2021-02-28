@@ -7,16 +7,19 @@ const Countdown = ({timeLeft}) => {
       }
   
       timerComponents.push(
-        <span key={index}>
-          {timeLeft[interval]} {interval}{" "}
-        </span>
+        <div key={index} className="destructureTimer">
+          <p> {timeLeft[interval]} {" "}</p>
+          <p className="timer-label">{interval}</p>
+        </div>
       );
     });
 
     return (
         <>
             { timerComponents.length ? 
-                timerComponents 
+                <div className="timer">
+                  {timerComponents}
+                </div> 
                 : 
                 <span>Time's up!</span>}
         </>

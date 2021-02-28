@@ -17,19 +17,23 @@ body {
 
 .title {
   color: hsl(0, 0%, 94%);
-  font-size: 1.1rem;
-  letter-spacing: 0.5rem;
-  padding: 3rem;
 }
 
-.attribution {
-  position: fixed;
-  bottom: 0;
-  font-size: 11px;
+.timer {
+  margin-top: 80px;
+  display: flex;
 }
 
-.attribution a {
-  color: hsl(237, 18%, 59%)
+
+.destructureTimer {
+  text-align: center;
+  padding: 10px;
+}
+
+.timer-label {
+  text-align: center;
+  color: hsl(237, 18%, 59%);
+  letter-spacing: 0.3rem;
 }
 
 .footer {
@@ -41,4 +45,24 @@ body {
   display: flex;
   justify-content: center;
   background-size: cover;
+}
+
+.social-links {
+  position: fixed;
+  bottom: 60px;
+}
+
+.social-links-icon {
+  margin-right: 20px;
+}
+
+
+.attribution {
+  position: fixed;
+  bottom: 0;
+  font-size: 11px;
+}
+
+.attribution a {
+  color: hsl(237, 18%, 59%)
 }
