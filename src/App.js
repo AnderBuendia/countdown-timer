@@ -1,48 +1,45 @@
 import React, {useState, useEffect} from 'react';
+import usePrevious from './hooks/usePrevious';
 import './index.css';
-import { setCountdownTwoWeeks } from './utils/setCountdownTwoWeeks';
 import Countdown from './components/Countdown';
 import Footer from './components/Footer';
 
 function App() {
-  const countdownTwoWeeks = setCountdownTwoWeeks();
+  const [time, setTime] = useState(0);
 
-  const calculateTimeLeft = date => {
-    let difference = +new Date(`${date}`) - +new Date();
-
-    let timeLeft = {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-    };
-
-    for (let i in timeLeft) {
-      if (timeLeft[i] < 10) {
-        timeLeft[i] = ("0" + timeLeft[i]).slice(-2);
-      } 
-    }
-
-    return timeLeft;
+  const resetInterval = 1209600; // 14 days = 1209600s
+  const timeRemain = resetInterval - (time % resetInterval);
+  
+  let timeleft = { 
+    days: Math.floor(timeRemain / (60 * 60 * 24)),
+    hours: Math.floor((timeRemain / (60 * 60)) % 24),
+    minutes: Math.floor((timeRemain / 60) % 60),
+    seconds: (timeRemain % 60)
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(countdownTwoWeeks));
-  
+  const prevCount = usePrevious(timeleft);
+
+  for (let i in timeleft) {
+    if (timeleft[i] < 10) {
+      timeleft[i] = ("0" + timeleft[i]).slice(-2);
+    } 
+  }
+
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(countdownTwoWeeks));
+    const timer = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
     }, 1000);
 
-    return () => {
-      clearTimeout(timer);
-    }
-  });
+    return () => clearInterval(timer);
+  }, [])
+
 
   return (
     <div className="container">
       <h1 className="title">We're launching soon</h1>
 
-      <Countdown timeLeft={timeLeft} />
+      <Countdown prevCount={prevCount} timeleft={timeleft} />
     
       <Footer />
     </div>

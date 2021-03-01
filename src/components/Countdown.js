@@ -1,14 +1,14 @@
-const Countdown = ({timeLeft}) => {
+const Countdown = ({prevCount, timeleft}) => {
     const timerComponents = [];
 
-    Object.keys(timeLeft).forEach((interval, index) => {
-      if (!timeLeft[interval]) {
+    Object.keys(timeleft).forEach((interval, index) => {
+      if (!timeleft[interval]) {
         return;
       }
-  
+
       timerComponents.push(
         <div key={index} className="destructureTimer">
-          <p> {timeLeft[interval]} {" "}</p>
+          <p className="timer-time"> {timeleft[interval]} {" "}</p>
           <p className="timer-label">{interval}</p>
         </div>
       );

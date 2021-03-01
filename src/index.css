@@ -19,23 +19,6 @@ body {
   color: hsl(0, 0%, 94%);
 }
 
-.timer {
-  margin-top: 80px;
-  display: flex;
-}
-
-
-.destructureTimer {
-  text-align: center;
-  padding: 10px;
-}
-
-.timer-label {
-  text-align: center;
-  color: hsl(237, 18%, 59%);
-  letter-spacing: 0.3rem;
-}
-
 .footer {
   background-image: url('images/pattern-hills.svg');
   position: fixed;
@@ -65,4 +48,48 @@ body {
 
 .attribution a {
   color: hsl(237, 18%, 59%)
+}
+
+/* Countdown timer */
+
+.timer {
+  margin-top: 80px;
+  display: flex;
+}
+
+
+.destructureTimer {
+  text-align: center;
+  padding: 10px;
+}
+
+.timer-time {
+  position: relative;
+  color: #fb6087;
+  height: 140px;
+  width: 150px;
+  background-color: #33354d;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 5.5em;
+  overflow: hidden;
+  margin-bottom: 27px;
+  line-height: 138px;
+  -webkit-box-shadow: 0px 8px 0px 0px #16151d;
+          box-shadow: 0px 8px 0px 0px #16151d;
+
+}
+
+.time-elem::before {
+  left: -5px;
+}
+
+.time-elem::after {
+  right: -5px;
+}
+
+.timer-label {
+  text-align: center;
+  color: hsl(237, 18%, 59%);
+  letter-spacing: 0.3rem;
 }
