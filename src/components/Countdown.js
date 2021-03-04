@@ -1,29 +1,44 @@
-const Countdown = ({prevCount, timeleft}) => {
-    const timerComponents = [];
+import FlipUnitContainer from './FlipUnitContainer';
 
-    Object.keys(timeleft).forEach((interval, index) => {
-      if (!timeleft[interval]) {
-        return;
-      }
+const Countdown = ({timeleft, shuffle, prevDigit}) => {
+  const timeleftArray = Object.keys(timeleft).map(unit => {
+    let digit = timeleft[unit]
+    
+    if (digit < 10) {
+      digit = ("0" + digit).slice(-2);
+    }
+     
+    return {unit, digit}
+  });
 
-      timerComponents.push(
-        <div key={index} className="destructureTimer">
-          <p className="timer-time"> {timeleft[interval]} {" "}</p>
-          <p className="timer-label">{interval}</p>
-        </div>
-      );
-    });
-
-    return (
-        <>
-            { timerComponents.length ? 
-                <div className="timer">
-                  {timerComponents}
-                </div> 
-                : 
-                <span>Time's up!</span>}
-        </>
-    )
+  return (
+    <div className="timer">
+      <FlipUnitContainer 
+        shuffle={shuffle.days}
+        prevDigit={prevDigit && prevDigit.days}
+        unit={timeleftArray[0].unit}
+        digit={timeleftArray[0].digit}
+      />
+      <FlipUnitContainer 
+        shuffle={shuffle.hours}
+        prevDigit={prevDigit && prevDigit.hours}
+        unit={timeleftArray[1].unit}
+        digit={timeleftArray[1].digit}
+      />
+      <FlipUnitContainer 
+        shuffle={shuffle.minutes}
+        prevDigit={prevDigit && prevDigit.minutes}
+        unit={timeleftArray[2].unit}
+        digit={timeleftArray[2].digit}
+      />
+      <FlipUnitContainer 
+        shuffle={shuffle.seconds}
+        prevDigit={prevDigit && prevDigit.seconds}
+        unit={timeleftArray[3].unit}
+        digit={timeleftArray[3].digit}
+      />
+    </div>
+  );
 }
 
 export default Countdown;

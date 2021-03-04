@@ -1,18 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-image: url('images/bg-stars.svg');
   font-family: 'Red Hat Text', sans-serif;
   font-weight: 700;
-  font-size: 14px;
   background-color: #1e1e2a;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 }
 
 .title {
@@ -50,46 +55,189 @@ body {
   color: hsl(237, 18%, 59%)
 }
 
-/* Countdown timer */
-
 .timer {
-  margin-top: 80px;
-  display: flex;
+	display: flex;
+  margin-top: 120px;
 }
 
-
-.destructureTimer {
-  text-align: center;
-  padding: 10px;
-}
-
-.timer-time {
-  position: relative;
-  color: #fb6087;
-  height: 140px;
-  width: 150px;
+/* Countdown timer */
+.flipUnitContainer {
   background-color: #33354d;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 5.5em;
-  overflow: hidden;
-  margin-bottom: 27px;
-  line-height: 138px;
+	display: block;
+	position: relative;
+	width: 140px;
+	height: 120px;
+	perspective-origin: 50% 50%;
+	perspective: 300px;
+	border-radius: 3px;
   -webkit-box-shadow: 0px 8px 0px 0px #16151d;
-          box-shadow: 0px 8px 0px 0px #16151d;
-
+  box-shadow: 0px 8px 0px 0px #16151d;
+  margin-right: 30px;
 }
 
-.time-elem::before {
-  left: -5px;
+.upperCard {
+  border-top: 1px solid hsl(237, 18%, 59%);
+  border-bottom: 0.5px solid #222333;
+  
 }
 
-.time-elem::after {
-  right: -5px;
+.upperCard,
+.lowerCard {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
 }
 
-.timer-label {
+.upperCard > span,
+.lowerCard > span {
+  font-size: 5em;
+  color: #fb6087;
+}
+
+.upperCard {
+  align-items: flex-end;
+	
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.upperCard > span {
+  transform: translateY(50%);
+}
+
+.lowerCard {
+  align-items: flex-start;
+ 
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.lowerCard > span {
+  transform: translateY(-50%);
+}
+
+.flipCard {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 50%;
+	overflow: hidden;
+	backface-visibility: hidden;
+}
+
+.flipCard > span {
+  font-size: 5em;
+  color: #fb6087;
+}
+
+.flipCard.fold {
+  top: 0%;
+  align-items: flex-end;
+  transform-origin: 50% 100%;
+  transform: rotateX(0deg);
+  background-color: #33354d;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-top: 1px solid hsl(237, 18%, 79%);
+  border-bottom: 0.5px solid #222333;
+}
+
+.flipCard.fold > span {
+  transform: translateY(50%);
+}
+
+.fold {
+  animation-name: fold;
+  transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-duration: 0.6s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+	transform-style: preserve-3d;
+}
+
+.unfold {
+  animation-name: unfold;
+  transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-duration: 0.6s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+	transform-style: preserve-3d;
+  
+}
+
+.flipCard.unfold {
+  background-color: #33354d;
+  top: 50%;
+	align-items: flex-start;
+	transform-origin: 50% 0%;
+	transform: rotateX(180deg);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.flipCard.unfold > span {
+  transform: translateY(-50%);
+}
+
+@keyframes fold {
+	0% { transform: rotateX(0deg); }
+	100% { transform: rotateX(-180deg); }
+}
+
+@keyframes unfold {
+  0% { transform: rotateX(180deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.flipUnitLabel {
   text-align: center;
   color: hsl(237, 18%, 59%);
   letter-spacing: 0.3rem;
+}
+
+@media only screen and (max-width: 768px)  {
+  .title {
+    font-size: 1.5em;
+  }
+
+  .upperCard > span, 
+  .lowerCard > span,
+  .flipCard.fold > span,
+  .flipCard.unfold > span {
+    font-size: 3em;
+  }
+
+  .flipUnitContainer {
+    width: 80px;
+    height: 60px;
+  }
+
+  .flipUnitLabel {
+    text-align: center;
+    font-size: 9px;
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 550px)  {
+  .upperCard > span, 
+  .lowerCard > span,
+  .flipCard.fold > span,
+  .flipCard.unfold > span {
+    font-size: 2.5em;
+  }
+
+  .flipUnitContainer {
+    width: 70px;
+    height: 65px;
+  }
 }

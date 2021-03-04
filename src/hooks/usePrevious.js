@@ -6,8 +6,8 @@ const usePrevious = value => {
     useEffect(() => {
         ref.current = value;
     });
-
-    return ref.current
+    
+    return ref.current;
 }
 
 export default usePrevious;
